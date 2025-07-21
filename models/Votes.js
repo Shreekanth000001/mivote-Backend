@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const votesSchema = new Schema({
     slno: {
         type: Number,
-        unique: true // Ensure slno is unique
     },
     voterid: {
         type: Schema.Types.ObjectId,
@@ -34,20 +33,6 @@ const votesSchema = new Schema({
     doi: { type: Date, default: Date.now },
 });
 
-votesSchema.pre('save', async function (next) {
-    if (this.isNew) {
-        try {
-            // Find the highest slno in the Votes collection
-            const lastVotes = await this.constructor.findOne().sort({ slno: -1 }).select('slno');
-            this.slno = lastVotes && lastVotes.slno ? lastVotes.slno + 1 : 1;
-            next();
-        } catch (error) {
-            next(error);
-        }
-    } else {
-        next();
-    }
-});
 const Votes = mongoose.model('Votes', votesSchema);
 Votes.createIndexes();
 module.exports = Votes;

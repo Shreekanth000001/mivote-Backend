@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Candidate = require('../models/Candidate');
-const Voter = require('../models/Voter');
 const { validationResult } = require('express-validator');
 
 router.post('/',
@@ -25,14 +24,10 @@ router.post('/',
         }
     })
 
-// routes/candidate.js
 router.get('/show', async (req, res) => {
   try {
-    const { category, voterid } = req.query;
-    const candidates = await Candidate.find({ categorytype: category });
-    const voter = await Voter.findById(voterid).select('voted');
-    const hasVoted = voter?.voted?.[category] ?? false;
-    res.json({ candidates, hasVoted });
+    const candidates = await Candidate.find({});
+    res.json({ candidates });
   } catch (error) {
     res.status(500).send({ message: 'An error occurred' });
   }

@@ -18,10 +18,7 @@ const voterSchema = new Schema({
   gender: {
     type: String
   },
-  voted: {
-    President: { type: Boolean, default: false },
-    VicePresident: { type: Boolean, default: false },
-    Secretary: { type: Boolean, default: false }
+  voted: { type: Boolean, default: false 
   },
   doj: {
     type: Date,
