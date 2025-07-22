@@ -1,12 +1,16 @@
 const connecToMongo = require('./db');
 const express = require('express')
 const cors = require("cors");
+const path = require('path');
 
 connecToMongo();
 
 const app = express();
 app.use(cors());
 const port = process.env.PORT || 3000;
+
+// Serve static files from the 'public/images' directory
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.use(express.json());
 

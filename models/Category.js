@@ -9,8 +9,8 @@ const categorySchema = new Schema({
     description: {
         type: String
     },
-    url: {
-        type: String
+    img: {
+        type: String // Will store the path like /images/president.png
     },
     doi: { type: Date, default: Date.now },
 });

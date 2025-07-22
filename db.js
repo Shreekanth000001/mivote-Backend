@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
-// require('.env').config();
-
-const mongoURI = "mongodb+srv://shreekanth669:shreekanthadmin1@tempcluster.cxe2bev.mongodb.net/godb";
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/Mivotedb";
 
 const connecToMongo = async () => {
-     await mongoose.connect(mongoURI)
-        .then(() => {
-            console.log('success');
-        }).catch((err) => {
-            console.log('no success', err);
-        });
+    try {
+        await mongoose.connect(mongoURI);
+        console.log('Successfully connected to MongoDB');
+    } catch (err) {
+        console.error('Failed to connect to MongoDB', err);
+        // Exit process with failure code if we can't connect to the DB
+        process.exit(1);
+    }
 }
 
-module.exports = connecToMongo
+module.exports = connecToMongo;
