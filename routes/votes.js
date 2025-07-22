@@ -55,4 +55,13 @@ router.post(
   }
 );
 
+router.get('/show', async (req, res) => {
+    try {
+      const votes = await Votes.find({});
+      res.status(200).json(votes);
+    } catch (error) {
+      res.status(500).send({ message: 'An error occurred in show votes' });
+    }
+  });
+
 module.exports = router;
